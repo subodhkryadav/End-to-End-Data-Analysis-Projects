@@ -36,8 +36,7 @@ Every major project in this repository follows a structured path:
 I am always looking for opportunities to contribute to data-driven projects. Feel free to reach out to me!
 
 * **LinkedIn**: [Subodh Kumar Yadav](https://www.linkedin.com/in/subodh-kumar-yadav-522828293/)
-* **Email**: [Your Email Address]
-* **Portfolio Site**: [Link to your personal site/resume if any]
+* **Email**: [subodhkumary933@gmail.com]
 
 ---
 *“Data is the new oil, but it’s only useful if you can refine it.”*
