@@ -131,8 +131,7 @@ SELECT DAYNAME('2003-03-15 15:29:04') AS past_day;
 SELECT DAYNAME('2028-12-02 15:29:04') AS future_day;
 
 -- Fetch records where ship date is older than 1 week from current date
-SELECT * FROM sales WHERE ship_date_new < DATE_SUB(NOW(), INTERVAL 1 WEEK)
-LIMIT 0, 2000;
+SELECT * FROM sales WHERE ship_date_new < DATE_SUB(NOW(), INTERVAL 1 WEEK);
 
 -- Count records where ship date is older than 1 week
 SELECT COUNT(*) FROM sales WHERE ship_date_new < DATE_SUB(NOW(), INTERVAL 1 WEEK);
@@ -159,5 +158,95 @@ SET SESSION sql_mode = '';
 ALTER TABLE sales MODIFY COLUMN year YEAR;
 UPDATE sales SET year = YEAR(order_date_new);
 
+#can you see the what is the dayname of the today
+select dayname(now()) as today;
+
 select * from sales;
 
+# can you create the 3 column Year_new,Month_new,Day_new and inside this column store the order_date_new 
+		-- all the values day column insert the date same like all
+alter table sales
+add column year_new int;
+
+alter table sales 
+add column Month_new int;
+
+alter table sales 
+add column Day_new int;
+
+-- column are created now inserting that particular data
+
+update sales 
+set Year_new = year(order_date_new);
+
+update sales
+set month_new=month(order_date_new);
+
+update sales
+set Day_new=Day(order_date_new);
+
+# Now show the result
+select * from sales;
+
+# what was the average sales in the year 2011
+select avg(sales) from sales where year_new=2011;
+
+# can you show the record that occuring avg wise sale in the each year
+select year_new,avg(sales) as avg_sales from sales group by year_new;
+
+# can you show the record that occureing sum wise sale in the each year
+select year_new,sum(sales) as total_sale_in_year from sales group by year_new;
+
+# can you show the record that occuring minimum wise sale in the each year
+select year_new,min(sales) as minimum_sale_in_this_year from sales group by year_new;
+
+# can you show the record that occuring maximum wise sale in the each year
+select year_new,max(sales) as maximum_sale_in_this_year from sales group by year_new;
+
+# can you show the average sale quantity in each year
+select year_new,avg(quantity) as average_quantity_sale from sales group by year_new;
+
+# can you show the total sale quantity in each year
+select year_new, sum(quantity) as total_quantity_sale from sales group by year_new;
+
+# can you show the minimum sale quantity in each year
+select year_new, min(quantity) as minimum_quantity_sale from sales group by year_new;
+
+# can you show the maximum sale quantity in each year
+select year_new,max(quantity) as maximum_quantity_sale from sales group by year_new;
+
+
+#  the table contain discoutn, profit and shiping cost 
+	-- so discount and shiping cost = expence on company or cost of compnay
+select sum(discount+shipping_cost) from sales;
+select (discount+shipping_cost) as CTC from sales;
+
+
+# above are one single problem that the discount is containg or giving the % and shipping_cost will be in the format of the numeric so dont add directly
+select (sales * discount) from sales;
+
+# so the final answer is: find the cost to pay company
+select (sales * discount +shipping_cost) as ctc from sales;
+
+# i have one discount column in this discount there are present in the 0 and other values so 
+	-- where the 0 show no flag and if ohter else show the flag is Yes
+select order_id,discount,if(discount>0,"yes","no") as flag_discount from sales;
+
+# extract all the iteams with discount & without discount,count the number 
+		-- count the number of iteam which is avl for discount or which is not avl for discount 
+-- so i can create one new column and use to store the flag_discount
+
+alter table sales
+add column flag_discount varchar(30);
+
+update sales
+set flag_discount=if(discount>0,"yes","no") ;
+
+select * from sales;
+-- next
+select flag_discount,count(*) from sales group by flag_discount;
+
+-- next
+select discount, count(*) from sales where discount>0;
+
+-- -------------------------------Day_04 completed-----------------------------------------
