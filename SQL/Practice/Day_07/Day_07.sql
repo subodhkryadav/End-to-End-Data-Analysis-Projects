@@ -188,7 +188,7 @@ select order_date_new as order_date,ship_date_new as ship_date,profit,discount,c
 ) as check_fullfillment_quality
 from sales;
 
--- 
+--  check how much record are present in this check fullfillment quality
 select check_fullfillment_quality(
 	order_date_new,
     ship_date_new,
@@ -201,3 +201,34 @@ select check_fullfillment_quality(
     profit,
     discount
 ) ;
+
+-- Now create one another function 
+Delimiter &&
+create function get_profit_status(
+	profit decimal(20,2),
+    discount decimal(20,2),
+    sales decimal(20,2)
+)
+returns varchar(40)
+deterministic 
+begin 
+	declare result varchar(40);
+	if profit<0 and discount>0.3 then
+		set result="Heavy Discount Loss";
+	elseif profit<0 and discount<0 then 
+		set result="Operational Loss";
+        
+	elseif profit > 0 and profit > (sales * 0.5) then
+		set result="Hight margin";
+	else
+		set result="Normal";
+	end if ;
+    return result;
+end &&;
+delimiter ;
+        
+-- now call the function
+select profit,discount,sales, get_profit_status(
+	profit,discount,sales) from sales;
+    
+-- ----------------------------------------- Day- 07 done ---------------------------------------------------
