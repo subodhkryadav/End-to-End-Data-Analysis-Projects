@@ -117,7 +117,6 @@ call calculator(2,3);
 -- -------------------------------basic  of function is completed ---------------------------------
 
 
-    
 
 
 
