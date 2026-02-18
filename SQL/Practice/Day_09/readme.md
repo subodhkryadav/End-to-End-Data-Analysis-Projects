@@ -1,7 +1,9 @@
-# Today focus on:-
-* primary key
-* Foreign key
-* basic model creation:-
-![model_1 Screenshot]("Screenshot 2026-02-18 065619.png")
+# Today's Focus
 
-![model_2 Screenshot]("D:\sqll\sql practice\End-to-End-Data-Analysis-Projects\SQL\Practice\Day_09\image.pn"g")
+* **Primary Key**
+* **Foreign Key**
+* **Basic Model Creation**
+
+![model_1 Screenshot](Screenshot%202026-02-18%20065619.png)
+
+![model_2 Screenshot](image.png)
