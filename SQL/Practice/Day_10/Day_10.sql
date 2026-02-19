@@ -190,6 +190,36 @@ select * from (select student_id,student_name,student_batch,student_marks,
     rank() over (partition by student_batch order by student_marks desc )
     as "rank" from Ineuron_student ) as test where `rank`=1;
 
--- 
--- 
-    
+-- can you try to find those student in every student_batch group who got the 2nd 
+	-- Highest marks inn the Ineuron_student table 
+-- Here use the dense_rank()
+select student_id ,student_name,student_batch,student_marks,
+row_number() over(partition by student_batch order by student_marks desc) as "row_number",
+rank() over(partition by student_batch order by student_marks desc) as "row_rank",
+dense_rank() over(partition by student_batch order by student_marks desc) as "Dense_mark"
+from ineuron_student;
+-- above code show me the how dense_rank show the result
+	-- now use to this find the second highest in every batch
+select * from (select student_id,student_name,student_batch,student_marks,
+row_number() over(partition by student_batch order by student_marks desc) as "row_number",
+rank() over(partition by student_batch order by student_marks desc) as "row_rank",
+dense_rank() over (partition by student_batch order by student_marks desc) as
+"dense_rank" from ineuron_student) as Test where `dense_rank`=2;
+
+-- just i am looking for the third highest 
+select student_id,student_name,student_batch,student_marks,`dense_rank` from 
+(select student_id,student_name,student_batch,student_marks,
+row_number() over(partition by student_batch order by student_marks desc) as "row_number",
+rank() over(partition by student_batch order by student_marks desc) as "row_rank",
+dense_rank() over (partition by student_batch order by student_marks desc) as
+"dense_rank" from ineuron_student) as Test where `dense_rank`=3;
+
+-- can you try to find out the first second and third postion of all the batches student
+	-- who got the highest marks in the table
+select * from (select student_id,student_name,student_batch,student_marks,
+row_number() over(partition by student_batch order by student_marks desc) as "row_number",
+rank() over (partition by student_batch order by student_marks desc) as "row_rank",
+dense_rank() over(partition by student_batch order by student_marks desc) as "dense_rank"
+from  Ineuron_student) as Test where `dense_rank` in (1,2,3);
+
+-- --- Day 10 --- Window function down----------------------------------------------------------
