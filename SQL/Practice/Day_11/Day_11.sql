@@ -573,4 +573,5 @@ information_schema.partitions where table_name="Ineuron_course_10";
             -- p3 five time
 -- firstly the partition will execute that p0 to p3 then
 	-- supartition will execute it divide the data into all partition are available divide into 5 gimes
-    
+
+-- ---------------------------------- Day- 11 -- partitioning --- -------- Done-----------------------------------------------------------    
