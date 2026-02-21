@@ -1,6 +1,4 @@
-# SQL Partitioning – README
-
-This file contains the basic types of partitioning in SQL and their functionality.
+# Today's focus Partitioning
 
 ---
 
